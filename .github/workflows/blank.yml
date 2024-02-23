@@ -1,0 +1,25 @@
+name: push
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 */2 * * *
+  watch:
+    types: started
+jobs:
+  run-it:
+    runs-on: ubuntu-latest
+    name: zip
+    steps:
+
+      - name: Checkout codes
+        uses: actions/checkout@v2
+
+      - name: Commit config
+        run: |
+         echo `date +"%Y-%m-%d %H:%M:%S"` begin > time.log
+         git config --global user.email "115229257+raffiihza@users.noreply.github.com"
+         git config --global user.name "raffiihza"
+         git add .
+         git commit -am "Commit harian"
+         git push
